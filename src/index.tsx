@@ -5,5 +5,5 @@ import { MilkyMist } from "./screens/MilkyMist";
 createRoot(document.getElementById("app") as HTMLElement).render(
   <StrictMode>
     <MilkyMist />
-  </StrictMode>,
+  </StrictMode>
 );
