@@ -123,8 +123,13 @@ const MilkyMistProduct = () => (
   </div>
 );
 
-const Header = () => {
-  const [selectedState, setSelectedState] = useState<string>("");
+const Header = ({
+  selectedState,
+  setSelectedState,
+}: {
+  selectedState: string;
+  setSelectedState: (state: string) => void;
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const states = ["Karnataka", "Andhra Pradesh", "Tamil Nadu", "Kerala"];
@@ -189,7 +194,11 @@ const Header = () => {
   );
 };
 
-const LocationIndicator = () => {
+const LocationIndicator = ({
+  onStateDetected,
+}: {
+  onStateDetected: (state: string) => void;
+}) => {
   const [state, setState] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -216,6 +225,9 @@ const LocationIndicator = () => {
             data?.address?.county ||
             null;
           setState(stateName);
+          if (stateName) {
+            onStateDetected(stateName);
+          }
         } catch (e) {
           setError("Failed to fetch location details.");
         } finally {
@@ -227,7 +239,7 @@ const LocationIndicator = () => {
         setLoading(false);
       }
     );
-  }, []);
+  }, [onStateDetected]);
 
   return (
     <div className="text-center absolute bottom-[100px] right-[100px]">
@@ -248,9 +260,21 @@ const LocationIndicator = () => {
 };
 
 export const MilkyMist = (): JSX.Element => {
+  const [selectedState, setSelectedState] = useState<string>("");
+
+  const handleStateDetected = (state: string) => {
+    if (!selectedState) {
+      // Only set if no state is selected yet
+      setSelectedState(state);
+    }
+  };
+
   return (
     <>
-      <Header />
+      <Header
+        selectedState={selectedState}
+        setSelectedState={setSelectedState}
+      />
       <>
         {/* For large screens: original layout preserved and scaled */}
         <div className="relative top-[-100px] left-[0px]">
@@ -262,6 +286,7 @@ export const MilkyMist = (): JSX.Element => {
           </div>
         </div>
         <MilkyMistProduct />
+        <LocationIndicator onStateDetected={handleStateDetected} />
       </>
     </>
   );
