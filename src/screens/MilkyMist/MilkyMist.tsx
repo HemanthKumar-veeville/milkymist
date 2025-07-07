@@ -34,7 +34,7 @@ const foodItemsByState: StateFoodItemsType = {
   Karnataka: {
     q1: {
       name: "Idli",
-      image: "/img/karnataka/mask-group-3.png",
+      image: "/img/Karnataka/Idli.jpg",
       position: "top-[168px] left-[154px]",
       minWidth: "min-w-[286px]",
       maxWidth: "max-w-[286px]",
@@ -49,7 +49,7 @@ const foodItemsByState: StateFoodItemsType = {
     },
     q2: {
       name: "Podi",
-      image: "/img/karnataka/mask-group-2.png",
+      image: "/img/Karnataka/Podi.jpg",
       position: "top-[241px] left-[452px]",
       minWidth: "min-w-[210px]",
       maxWidth: "max-w-[210px]",
@@ -64,7 +64,7 @@ const foodItemsByState: StateFoodItemsType = {
     },
     q3: {
       name: "Chutney",
-      image: "/img/karnataka/mask-group-1.png",
+      image: "/img/Karnataka/chutney.jpg",
       position: "top-[509px] left-[155px]",
       minWidth: "min-w-[210px]",
       maxWidth: "max-w-[210px]",
@@ -79,7 +79,7 @@ const foodItemsByState: StateFoodItemsType = {
     },
     q4: {
       name: "Sambar",
-      image: "/img/karnataka/mask-group.png",
+      image: "/img/Karnataka/Sambar.jpg",
       position: "top-[500px] left-[376px]",
       minWidth: "min-w-[286px]",
       maxWidth: "max-w-[286px]",
@@ -96,7 +96,7 @@ const foodItemsByState: StateFoodItemsType = {
   "Tamil Nadu": {
     q1: {
       name: "Dosa",
-      image: "/img/tamilnadu/mask-group-3.png",
+      image: "/img/Tamil Nadu/Dosa.jpg",
       position: "top-[168px] left-[154px]",
       minWidth: "min-w-[286px]",
       maxWidth: "max-w-[286px]",
@@ -110,8 +110,8 @@ const foodItemsByState: StateFoodItemsType = {
       bgPosition: "top-[15px] left-0",
     },
     q2: {
-      name: "Podi",
-      image: "/img/tamilnadu/mask-group-2.png",
+      name: "Curd Rice",
+      image: "/img/Tamil Nadu/curd_rice.webp",
       position: "top-[241px] left-[452px]",
       minWidth: "min-w-[210px]",
       maxWidth: "max-w-[210px]",
@@ -125,8 +125,8 @@ const foodItemsByState: StateFoodItemsType = {
       bgPosition: "",
     },
     q3: {
-      name: "Chutney",
-      image: "/img/tamilnadu/mask-group-1.png",
+      name: "Sambar",
+      image: "/img/Tamil Nadu/Sambar.jpg",
       position: "top-[509px] left-[155px]",
       minWidth: "min-w-[210px]",
       maxWidth: "max-w-[210px]",
@@ -140,8 +140,8 @@ const foodItemsByState: StateFoodItemsType = {
       bgPosition: "",
     },
     q4: {
-      name: "Sambar",
-      image: "/img/tamilnadu/mask-group.png",
+      name: "Vada",
+      image: "/img/Tamil Nadu/Vada.jpg",
       position: "top-[500px] left-[376px]",
       minWidth: "min-w-[286px]",
       maxWidth: "max-w-[286px]",
@@ -285,13 +285,13 @@ const FoodItem = ({ item }: { item: FoodItemType }) => (
   <div
     className={`absolute ${item.minWidth} ${item.maxWidth} ${item.minHeight} ${item.maxHeight} ${item.position} pointer-events-none`}
   >
-    {item.bgPosition && (
+    {/* {item.bgPosition && (
       <div
         className={`absolute ${item.minWidth} ${item.maxWidth} min-h-[317px] max-h-[317px] ${item.bgPosition} bg-[#d9d9d9] rounded-[39px] z-0`}
       />
-    )}
+    )} */}
     <img
-      className={`${item.minWidth} ${item.maxWidth} ${item.imageMinHeight} ${item.imageMaxHeight} ${item.imagePosition} absolute left-0 z-10`}
+      className={`${item.minWidth} ${item.maxWidth} ${item.imageMinHeight} ${item.imageMaxHeight} ${item.imagePosition} absolute left-0 z-10 rounded-[39px]`}
       alt={`${item.name} image`}
       src={item.image}
     />
@@ -402,24 +402,69 @@ const LocationIndicator = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const getLocationFromBrowser = async (): Promise<string | null> => {
+    if (!navigator.geolocation) {
+      throw new Error("Geolocation is not supported by your browser.");
+    }
+
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const { latitude, longitude } = position.coords;
+            // Use OpenStreetMap Nominatim reverse geocoding
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            );
+            const data = await response.json();
+            // Try to get state from address
+            const stateName =
+              data?.address?.state ||
+              data?.address?.region ||
+              data?.address?.county ||
+              null;
+            resolve(stateName);
+          } catch (e) {
+            reject(new Error("Failed to fetch location details."));
+          }
+        },
+        (err) => {
+          reject(new Error("Location access denied or unavailable."));
+        }
+      );
+    });
+  };
+
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        // Use ipapi.co service to get location data
+        // First try ipapi.co service
         const response = await fetch("https://ipapi.co/json/");
         if (!response.ok) {
-          throw new Error("Failed to fetch location data");
+          throw new Error("Failed to fetch location data from ipapi");
         }
         const data = await response.json();
-
-        // Get state/region from the API response
         const stateName = data.region || null;
-        setState(stateName);
-        if (stateName) {
-          onStateDetected(stateName);
+
+        if (!stateName) {
+          throw new Error("No state information from ipapi");
         }
+
+        setState(stateName);
+        onStateDetected(stateName);
       } catch (e) {
-        setError("Failed to detect location.");
+        // If ipapi fails, try browser geolocation as fallback
+        try {
+          const browserStateName = await getLocationFromBrowser();
+          if (browserStateName) {
+            setState(browserStateName);
+            onStateDetected(browserStateName);
+          } else {
+            setError("Could not determine location.");
+          }
+        } catch (browserError) {
+          setError("Failed to detect location through all available methods.");
+        }
       } finally {
         setLoading(false);
       }
