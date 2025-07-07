@@ -403,41 +403,29 @@ const LocationIndicator = ({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-      setError("Geolocation is not supported by your browser.");
-      setLoading(false);
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-        try {
-          // Use OpenStreetMap Nominatim reverse geocoding
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-          );
-          const data = await response.json();
-          // Try to get state from address
-          const stateName =
-            data?.address?.state ||
-            data?.address?.region ||
-            data?.address?.county ||
-            null;
-          setState(stateName);
-          if (stateName) {
-            onStateDetected(stateName);
-          }
-        } catch (e) {
-          setError("Failed to fetch location details.");
-        } finally {
-          setLoading(false);
+    const fetchLocation = async () => {
+      try {
+        // Use ipapi.co service to get location data
+        const response = await fetch("https://ipapi.co/json/");
+        if (!response.ok) {
+          throw new Error("Failed to fetch location data");
         }
-      },
-      (err) => {
-        setError("Location access denied or unavailable.");
+        const data = await response.json();
+
+        // Get state/region from the API response
+        const stateName = data.region || null;
+        setState(stateName);
+        if (stateName) {
+          onStateDetected(stateName);
+        }
+      } catch (e) {
+        setError("Failed to detect location.");
+      } finally {
         setLoading(false);
       }
-    );
+    };
+
+    fetchLocation();
   }, [onStateDetected]);
 
   return (
