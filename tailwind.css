@@ -93,3 +93,34 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(11, 37, 77, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0b254d;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #08224c;
+}
+
+/* Hide Scrollbar Arrows */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Firefox Scrollbar Styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0b254d rgba(11, 37, 77, 0.1);
+}

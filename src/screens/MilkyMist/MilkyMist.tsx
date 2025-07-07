@@ -19,68 +19,267 @@ interface FoodItemType {
   bgPosition: string;
 }
 
-const foodItems: FoodItemType[] = [
-  {
-    name: "Idli",
-    image: "/img/mask-group-3.png",
-    position: "top-[168px] left-[154px]",
-    minWidth: "min-w-[286px]",
-    maxWidth: "max-w-[286px]",
-    minHeight: "min-h-[332px]",
-    maxHeight: "max-h-[332px]",
-    badgePosition: "top-0 left-[82px]",
-    textPosition: "top-px left-12",
-    imagePosition: "top-[17px]",
-    imageMinHeight: "min-h-[312px]",
-    imageMaxHeight: "max-h-[312px]",
-    bgPosition: "top-[15px] left-0",
+interface StateImagesType {
+  q1: FoodItemType;
+  q2: FoodItemType;
+  q3: FoodItemType;
+  q4: FoodItemType;
+}
+
+interface StateFoodItemsType {
+  [key: string]: StateImagesType;
+}
+
+const foodItemsByState: StateFoodItemsType = {
+  Karnataka: {
+    q1: {
+      name: "Idli",
+      image: "/img/karnataka/mask-group-3.png",
+      position: "top-[168px] left-[154px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[332px]",
+      maxHeight: "max-h-[332px]",
+      badgePosition: "top-0 left-[82px]",
+      textPosition: "top-px left-12",
+      imagePosition: "top-[17px]",
+      imageMinHeight: "min-h-[312px]",
+      imageMaxHeight: "max-h-[312px]",
+      bgPosition: "top-[15px] left-0",
+    },
+    q2: {
+      name: "Podi",
+      image: "/img/karnataka/mask-group-2.png",
+      position: "top-[241px] left-[452px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[254px]",
+      maxHeight: "max-h-[254px]",
+      badgePosition: "top-0 left-[43px]",
+      textPosition: "top-px left-[9px]",
+      imagePosition: "top-3.5",
+      imageMinHeight: "min-h-60",
+      imageMaxHeight: "max-h-60",
+      bgPosition: "",
+    },
+    q3: {
+      name: "Chutney",
+      image: "/img/karnataka/mask-group-1.png",
+      position: "top-[509px] left-[155px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[302px]",
+      maxHeight: "max-h-[302px]",
+      badgePosition: "top-[233px] left-[42px]",
+      textPosition: "top-[234px] left-2",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[249px]",
+      imageMaxHeight: "max-h-[249px]",
+      bgPosition: "",
+    },
+    q4: {
+      name: "Sambar",
+      image: "/img/karnataka/mask-group.png",
+      position: "top-[500px] left-[376px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[371px]",
+      maxHeight: "max-h-[371px]",
+      badgePosition: "top-[302px] left-[81px]",
+      textPosition: "top-[303px] left-[43px]",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[317px]",
+      imageMaxHeight: "max-h-[317px]",
+      bgPosition: "top-0.5 left-0",
+    },
   },
-  {
-    name: "Podi",
-    image: "/img/mask-group-2.png",
-    position: "top-[241px] left-[452px]",
-    minWidth: "min-w-[210px]",
-    maxWidth: "max-w-[210px]",
-    minHeight: "min-h-[254px]",
-    maxHeight: "max-h-[254px]",
-    badgePosition: "top-0 left-[43px]",
-    textPosition: "top-px left-[9px]",
-    imagePosition: "top-3.5",
-    imageMinHeight: "min-h-60",
-    imageMaxHeight: "max-h-60",
-    bgPosition: "",
+  "Tamil Nadu": {
+    q1: {
+      name: "Dosa",
+      image: "/img/tamilnadu/mask-group-3.png",
+      position: "top-[168px] left-[154px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[332px]",
+      maxHeight: "max-h-[332px]",
+      badgePosition: "top-0 left-[82px]",
+      textPosition: "top-px left-12",
+      imagePosition: "top-[17px]",
+      imageMinHeight: "min-h-[312px]",
+      imageMaxHeight: "max-h-[312px]",
+      bgPosition: "top-[15px] left-0",
+    },
+    q2: {
+      name: "Podi",
+      image: "/img/tamilnadu/mask-group-2.png",
+      position: "top-[241px] left-[452px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[254px]",
+      maxHeight: "max-h-[254px]",
+      badgePosition: "top-0 left-[43px]",
+      textPosition: "top-px left-[9px]",
+      imagePosition: "top-3.5",
+      imageMinHeight: "min-h-60",
+      imageMaxHeight: "max-h-60",
+      bgPosition: "",
+    },
+    q3: {
+      name: "Chutney",
+      image: "/img/tamilnadu/mask-group-1.png",
+      position: "top-[509px] left-[155px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[302px]",
+      maxHeight: "max-h-[302px]",
+      badgePosition: "top-[233px] left-[42px]",
+      textPosition: "top-[234px] left-2",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[249px]",
+      imageMaxHeight: "max-h-[249px]",
+      bgPosition: "",
+    },
+    q4: {
+      name: "Sambar",
+      image: "/img/tamilnadu/mask-group.png",
+      position: "top-[500px] left-[376px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[371px]",
+      maxHeight: "max-h-[371px]",
+      badgePosition: "top-[302px] left-[81px]",
+      textPosition: "top-[303px] left-[43px]",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[317px]",
+      imageMaxHeight: "max-h-[317px]",
+      bgPosition: "top-0.5 left-0",
+    },
   },
-  {
-    name: "Chutney",
-    image: "/img/mask-group-1.png",
-    position: "top-[509px] left-[155px]",
-    minWidth: "min-w-[210px]",
-    maxWidth: "max-w-[210px]",
-    minHeight: "min-h-[302px]",
-    maxHeight: "max-h-[302px]",
-    badgePosition: "top-[233px] left-[42px]",
-    textPosition: "top-[234px] left-2",
-    imagePosition: "top-0",
-    imageMinHeight: "min-h-[249px]",
-    imageMaxHeight: "max-h-[249px]",
-    bgPosition: "",
+  Kerala: {
+    q1: {
+      name: "Puttu",
+      image: "/img/kerala/mask-group-3.png",
+      position: "top-[168px] left-[154px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[332px]",
+      maxHeight: "max-h-[332px]",
+      badgePosition: "top-0 left-[82px]",
+      textPosition: "top-px left-12",
+      imagePosition: "top-[17px]",
+      imageMinHeight: "min-h-[312px]",
+      imageMaxHeight: "max-h-[312px]",
+      bgPosition: "top-[15px] left-0",
+    },
+    q2: {
+      name: "Kadala Curry",
+      image: "/img/kerala/mask-group-2.png",
+      position: "top-[241px] left-[452px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[254px]",
+      maxHeight: "max-h-[254px]",
+      badgePosition: "top-0 left-[43px]",
+      textPosition: "top-px left-[9px]",
+      imagePosition: "top-3.5",
+      imageMinHeight: "min-h-60",
+      imageMaxHeight: "max-h-60",
+      bgPosition: "",
+    },
+    q3: {
+      name: "Chutney",
+      image: "/img/kerala/mask-group-1.png",
+      position: "top-[509px] left-[155px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[302px]",
+      maxHeight: "max-h-[302px]",
+      badgePosition: "top-[233px] left-[42px]",
+      textPosition: "top-[234px] left-2",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[249px]",
+      imageMaxHeight: "max-h-[249px]",
+      bgPosition: "",
+    },
+    q4: {
+      name: "Sambar",
+      image: "/img/kerala/mask-group.png",
+      position: "top-[500px] left-[376px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[371px]",
+      maxHeight: "max-h-[371px]",
+      badgePosition: "top-[302px] left-[81px]",
+      textPosition: "top-[303px] left-[43px]",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[317px]",
+      imageMaxHeight: "max-h-[317px]",
+      bgPosition: "top-0.5 left-0",
+    },
   },
-  {
-    name: "Sambar",
-    image: "/img/mask-group.png",
-    position: "top-[500px] left-[376px]",
-    minWidth: "min-w-[286px]",
-    maxWidth: "max-w-[286px]",
-    minHeight: "min-h-[371px]",
-    maxHeight: "max-h-[371px]",
-    badgePosition: "top-[302px] left-[81px]",
-    textPosition: "top-[303px] left-[43px]",
-    imagePosition: "top-0",
-    imageMinHeight: "min-h-[317px]",
-    imageMaxHeight: "max-h-[317px]",
-    bgPosition: "top-0.5 left-0",
+  "Andhra Pradesh": {
+    q1: {
+      name: "Pesarattu",
+      image: "/img/andhra/mask-group-3.png",
+      position: "top-[168px] left-[154px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[332px]",
+      maxHeight: "max-h-[332px]",
+      badgePosition: "top-0 left-[82px]",
+      textPosition: "top-px left-12",
+      imagePosition: "top-[17px]",
+      imageMinHeight: "min-h-[312px]",
+      imageMaxHeight: "max-h-[312px]",
+      bgPosition: "top-[15px] left-0",
+    },
+    q2: {
+      name: "Ginger Chutney",
+      image: "/img/andhra/mask-group-2.png",
+      position: "top-[241px] left-[452px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[254px]",
+      maxHeight: "max-h-[254px]",
+      badgePosition: "top-0 left-[43px]",
+      textPosition: "top-px left-[9px]",
+      imagePosition: "top-3.5",
+      imageMinHeight: "min-h-60",
+      imageMaxHeight: "max-h-60",
+      bgPosition: "",
+    },
+    q3: {
+      name: "Coconut Chutney",
+      image: "/img/andhra/mask-group-1.png",
+      position: "top-[509px] left-[155px]",
+      minWidth: "min-w-[210px]",
+      maxWidth: "max-w-[210px]",
+      minHeight: "min-h-[302px]",
+      maxHeight: "max-h-[302px]",
+      badgePosition: "top-[233px] left-[42px]",
+      textPosition: "top-[234px] left-2",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[249px]",
+      imageMaxHeight: "max-h-[249px]",
+      bgPosition: "",
+    },
+    q4: {
+      name: "Sambar",
+      image: "/img/andhra/mask-group.png",
+      position: "top-[500px] left-[376px]",
+      minWidth: "min-w-[286px]",
+      maxWidth: "max-w-[286px]",
+      minHeight: "min-h-[371px]",
+      maxHeight: "max-h-[371px]",
+      badgePosition: "top-[302px] left-[81px]",
+      textPosition: "top-[303px] left-[43px]",
+      imagePosition: "top-0",
+      imageMinHeight: "min-h-[317px]",
+      imageMaxHeight: "max-h-[317px]",
+      bgPosition: "top-0.5 left-0",
+    },
   },
-];
+};
 
 const FoodItem = ({ item }: { item: FoodItemType }) => (
   <div
@@ -260,14 +459,17 @@ const LocationIndicator = ({
 };
 
 export const MilkyMist = (): JSX.Element => {
-  const [selectedState, setSelectedState] = useState<string>("");
+  const [selectedState, setSelectedState] = useState<string>("Karnataka");
 
   const handleStateDetected = (state: string) => {
     if (!selectedState) {
-      // Only set if no state is selected yet
       setSelectedState(state);
     }
   };
+
+  // Get the food items for the selected state
+  const currentStateFoodItems =
+    foodItemsByState[selectedState] || foodItemsByState["Karnataka"];
 
   return (
     <>
@@ -278,9 +480,10 @@ export const MilkyMist = (): JSX.Element => {
       <>
         {/* For large screens: original layout preserved and scaled */}
         <div className="relative top-[-100px] left-[0px]">
-          {foodItems.map((item, index) => (
-            <FoodItem key={`food-item-${index}`} item={item} />
-          ))}
+          <FoodItem item={currentStateFoodItems.q1} />
+          <FoodItem item={currentStateFoodItems.q2} />
+          <FoodItem item={currentStateFoodItems.q3} />
+          <FoodItem item={currentStateFoodItems.q4} />
           <div className="absolute top-[275px] right-[650px] font-bold text-[#0b254d] text-[135px] text-center tracking-[-4.05px] leading-[148.5px] whitespace-nowrap">
             =
           </div>
